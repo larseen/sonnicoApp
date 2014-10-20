@@ -35,7 +35,7 @@
 				<div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h4 class="panel-title">Kontaktpersoner<a href="" ng-click="employeeModal()"><span id="padder"class="glyphicon glyphicon-plus-sign"></span></a></</h4>
+							<h4 class="panel-title">Kontaktpersoner<a href="" ng-click="employeeModal()"><span id="padder"class="glyphicon glyphicon-plus-sign"></span></a></h4>
 						</div>
 						<div class="panel-body">
 							<div class="row">
@@ -116,72 +116,72 @@
 						<div class="panel-body" id="contractPanel">
 							<div class="row">
 								<tabset>
-		<tab heading="Aktive kontrakter" style="width: 50%">
-			<div ng-repeat="contract in customer.activeContracts | orderBy:'dateRenewal':false" class="col-md-12">
-									<div class="{{(returnClassStatus(contract))}}">
-										<div class="panel-heading">
-											<h3 class="panel-title"><strong>Kontrakt:</strong> {{contract.contractNumber}}</h3><small>Dager til fornyelse: {{daysToRenewal(contract.dateRenewal)}} Dager.</small>
+									<tab heading="Aktive kontrakter" style="width: 50%">
+										<div ng-repeat="contract in customer.activeContracts | orderBy:'dateRenewal':false" class="col-md-12">
+											<div class="{{(returnClassStatus(contract))}}">
+												<div class="panel-heading">
+													<h3 class="panel-title"><strong>Kontrakt:</strong> {{contract.contractNumber}}</h3><small>Dager til fornyelse: {{daysToRenewal(contract.dateRenewal)}} Dager.</small>
+												</div>
+												<div class="panel-body">
+													<table class="table" id="contractTable">
+														<thead>
+															<tr>
+																<th><a><strong>Tjeneste:</strong></a></th>
+																<th><a><strong>Utført:</strong></a></th>
+																<th><a><strong>Neste:</strong> </a></th>
+																<th><a><strong>Av:</strong></a></th>
+																<th><a><strong>Kommentar:</strong></a></th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>{{contract.serviceType}}</td>
+																<td>{{contract.dateCompleted | date:'dd/MM/yyyy'}}</td>
+																<td>{{contract.dateRenewal | date:'dd/MM/yyyy'}}</td>
+																<td>{{contract.user.name}}</td>
+																<td>{{contract.comment}}</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
 										</div>
-										<div class="panel-body">
-											<table class="table" id="contractTable">
-												<thead>
-													<tr>
-														<th><a><strong>Tjeneste:</strong></a></th>
-														<th><a><strong>Utført:</strong></a></th>
-														<th><a><strong>Neste:</strong> </a></th>
-														<th><a><strong>Av:</strong></a></th>
-														<th><a><strong>Kommentar:</strong></a></th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>{{contract.serviceType}}</td>
-														<td>{{contract.dateCompleted | date:'dd/MM/yyyy'}}</td>
-														<td>{{contract.dateRenewal | date:'dd/MM/yyyy'}}</td>
-														<td>{{contract.user.name}}</td>
-														<td>{{contract.comment}}</td>
-													</tr>
-												</tbody>
-											</table>
+									</tab>
+									<tab heading="Utløpte kontrakter" style="width: 50%">
+										<div ng-repeat="contract in customer.expiredContracts | orderBy:'dateCompleted':true" class="col-md-12">
+											<div class="{{(returnClassStatus(contract))}}">
+												<div class="panel-heading">
+													<h3 class="panel-title"><strong>Kontrakt:</strong> {{contract.contractNumber}}</h3><small>Dager til fornyelse: {{daysToRenewal(contract.dateRenewal)}} Dager.</small>
+												</div>
+												<div class="panel-body">
+													<table class="table-condensed" id="contractTable">
+														<thead>
+															<tr>
+																<th><a><strong>Tjeneste:</strong></a></th>
+																<th><a><strong>Utført:</strong></a></th>
+																<th><a><strong>Neste:</strong> </a></th>
+																<th><a><strong>Av:</strong></a></th>
+																<th><a><strong>Kommentar:</strong></a></th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>{{contract.serviceType}}</td>
+																<td>{{contract.dateCompleted | date:'dd/MM/yyyy'}}</td>
+																<td>{{contract.dateRenewal | date:'dd/MM/yyyy'}}</td>
+																<td>{{contract.user.name}}</td>
+																<td>{{contract.comment}}</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-		</tab>
-		<tab heading="Utløpte kontrakter" style="width: 50%">
-			<div ng-repeat="contract in customer.expiredContracts | orderBy:'dateCompleted':true" class="col-md-12">
-									<div class="{{(returnClassStatus(contract))}}">
-										<div class="panel-heading">
-											<h3 class="panel-title"><strong>Kontrakt:</strong> {{contract.contractNumber}}</h3><small>Dager til fornyelse: {{daysToRenewal(contract.dateRenewal)}} Dager.</small>
-										</div>
-										<div class="panel-body">
-											<table class="table-condensed" id="contractTable">
-												<thead>
-													<tr>
-														<th><a><strong>Tjeneste:</strong></a></th>
-														<th><a><strong>Utført:</strong></a></th>
-														<th><a><strong>Neste:</strong> </a></th>
-														<th><a><strong>Av:</strong></a></th>
-														<th><a><strong>Kommentar:</strong></a></th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>{{contract.serviceType}}</td>
-														<td>{{contract.dateCompleted | date:'dd/MM/yyyy'}}</td>
-														<td>{{contract.dateRenewal | date:'dd/MM/yyyy'}}</td>
-														<td>{{contract.user.name}}</td>
-														<td>{{contract.comment}}</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-		</tab>
-	</tabset>
-								
+									</tab>
+								</tabset>
+
 							</div>
-</div>
+						</div>
 					</div>
 				</div>
 			</div>

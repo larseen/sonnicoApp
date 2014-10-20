@@ -11,12 +11,9 @@
     "angular-cookies": ">=1.2.*",
     "angular-sanitize": ">=1.2.*",
     "angular-route": ">=1.2.*",
-    "angular-slick": "~0.1.11",
     "angular-bootstrap": "~0.11.2",
-    "angulartics": "~0.17.0",
     "angular-strap": "*",
-    "ngmap": "*",
-    "angular-formstamp": "*"
+    "ngmap": "*"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
