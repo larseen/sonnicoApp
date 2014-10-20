@@ -1,0 +1,28 @@
+	<div class="modal-header">
+	    <h2>Legg til/Endre kundekontakt</h2>
+	</div>
+	<div class="modal-body">
+        <form name="form" novalidate>
+        <div class="form-group" class="col-md-12">
+            <label for="name">Navn</label>
+            <input type="text" name="name" class="form-control"required placeholder="{{employee.name}}" ng-model="employee.name">
+            <span ng-show="form.name.$error.required">Missing name</span>
+        </div>
+        <div class="form-group" class="col-md-12">
+            <label for="email">Epost</label>
+            <input type="email" placeholder="{{employee.email}}" required class="form-control" name="email" ng-model="employee.email">
+            <span ng-show="form.email.$error.required">Missing valid email</span>
+        </div>
+        <div class="form-group" class="col-md-12" >
+            <label for="phone">Telefon</label>
+            <input type="text" placeholder="{{employee.phone}}" name="phone" required class="form-control" id="phone" ng-model="employee.phone" ng-minlength="8">
+            <span ng-show="form.phone.$error.required">Missing valid phonenumber</span>
+        </div>
+    </form>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled='form.$invalid' ng-click="alter()">Endre/Legg til</button>
+        <button class="btn btn-danger" ng-click="remove()">Fjern</button>
+        <button class="btn btn-warning" ng-click="cancel()">Avbryt</button>
+    </div>

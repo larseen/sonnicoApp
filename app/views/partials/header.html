@@ -1,0 +1,18 @@
+<nav class="top-nav" ng-controller="NavbarCtrl">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" bs-navbar>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">SØNNICO</a>
+        </div>
+        <ul class="nav navbar-nav pull-left">
+            <li ng-class="{active: location=='/users'}" data-match-route="/users"><a href="/users"><span id="glyph" class="glyphicon glyphicon-eye-open"></span>Brukere</a></li>
+            <li ng-class="{active: location=='/'}" data-match-route="/"><a href="/"><span id="glyph" class="glyphicon glyphicon-book"></span>Kunder</a></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right dropdown">
+            <li><a class="dropdown-toggle" data-toggle="dropdown" href=""><span id="glyph" class="glyphicon glyphicon-user"></span>{{currentUser.name}}</a></li>
+            <ul class="dropdown-menu" role="menu" >
+                <li><a ng-click="currentUserModal()" href="">Rediger</a></li>
+                <li class="divider"></li>
+                <li><a ng-click="logout()" href="/login">Logg ut</a></li>
+            </ul>
+        </ul>
+    </div>

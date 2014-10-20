@@ -1,0 +1,210 @@
+<div ng-include="'partials/header.html'"></div>
+
+
+
+<div class="row">
+	<div class="page-header">
+		<h1>{{customer.customer}} 
+			<small>Kundekontrakt portal</small>
+		</h1>
+	</div>
+	<tabset>
+		<tab heading="Kundeinformasjon" style="width: 50%">
+			<br/>
+			<div class="row">
+				<div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+					<ul class="list-group" id="customerInfo">
+						<li class="list-group-item text-right"><span class="pull-left"><strong>Kundenummer</strong></span> {{customer.customerNumber}}</li>
+						<li class="list-group-item text-right"><span class="pull-left"><strong>Dato inngått</strong></span> {{customer.dateJoined | date:'dd/MM/yyyy'}}</li>
+						<li class="list-group-item text-right"><span class="pull-left"><strong>Adresse</strong></span>{{customer.adress}}</li>
+						<li class="list-group-item text-right"><span class="pull-left"><strong>Postkode</strong></span>{{customer.postalcode}}</li>
+						<li class="list-group-item text-right"><span class="pull-left"><strong>Poststed</strong></span>{{customer.city}}</li>
+						<li ng-if="customer.startingPrice" class="list-group-item text-right"><span class="pull-left"><strong>Pris</strong></span> {{customer.startingPrice | currency:'Kr '}}</li>
+						<li class="list-group-item text-right"><span class="pull-left"><strong>Sist regulert</strong></span>{{customer.lastRegulation | date:'dd/MM/yyyy'}}</li>
+						<li ng-if="customer.regulatedPrice" class="list-group-item text-right"><span class="pull-left"><strong>Ny pris</strong></span> {{customer.regulatedPrice | currency:'Kr '}} </li>
+						<li class="list-group-item text-right"><span class="pull-left"><strong>Neste regulering</strong></span>{{customer.nextRegulation | date:'dd/MM/yyyy'}} </li>
+					</ul> 
+				</div>
+				<div class="col-xs-6 col-sm-6 col-lg-6 col-md-6" id="customerInfo">
+					<map zoom="11" center="{{adress}}" style="display:block;height:300px" >
+						<marker position="{{adress}}"></marker>
+					</map>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">Kontaktpersoner<a href="" ng-click="employeeModal()"><span id="padder"class="glyphicon glyphicon-plus-sign"></span></a></</h4>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div ng-repeat="employee in customer.employees track by $index">
+									<div class="col-md-3">
+										<h4>{{employee.name}}</h4>
+										<strong>Mobil:</strong> {{employee.phone}}
+										<br/>
+										<strong>Epost:</strong> {{employee.email}}
+										<br/>	
+										<a href="" ng-click="employeeModal(employee)"><span></span>Rediger</a><span></span>
+										<a href="" ng-click="deleteEmployee(employee, $index)"><span></span>Fjern</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</tab>
+		<tab heading="Tjenesteinformasjon" style="width: 50%">
+			<br/>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">Kontrollør ansvarlige <span><small> Ansvarlige kontrollører blir delegert av administrator</small></span></h4>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3">
+									<h4>Brann
+										<small>{{customer.supervisors.fire.name}}</small>
+									</h4>
+									<strong>Mobil:</strong> {{customer.supervisors.fire.phone}}
+									<br/>
+									<strong>Epost:</strong> {{customer.supervisors.fire.email}}
+									<br/>
+								</div>
+								<div class="col-md-3">
+									<h4>Elektro
+										<small>{{customer.supervisors.elektro.name}}</small>
+									</h4>
+									<strong>Mobil:</strong> {{customer.supervisors.elektro.phone}}
+									<br/>
+									<strong>Epost:</strong> {{customer.supervisors.elektro.email}}
+									<br/>
+								</div>
+								<div class="col-md-3">
+									<h4>Termografi
+										<small>{{customer.supervisors.thermo.name}}</small>
+									</h4>
+									<strong>Mobil:</strong> {{customer.supervisors.thermo.phone}}
+									<br/>
+									<strong>Epost:</strong> {{customer.supervisors.thermo.email}}
+									<br/>
+								</div>
+								<div class="col-md-3">
+									<h4>Nødlys
+										<small>{{customer.supervisors.alert.name}}</small>
+									</h4>
+									<strong>Mobil:</strong> {{customer.supervisors.alert.phone}}
+									<br/>
+									<strong>Epost:</strong> {{customer.supervisors.alert.email}}
+									<br/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">Kontrakter<a href="" ng-click="serviceModal()"><span id="padder" class="glyphicon glyphicon-plus-sign"></span></a></h4>
+						</div>
+						<div class="panel-body" id="contractPanel">
+							<div class="row">
+								<tabset>
+		<tab heading="Aktive kontrakter" style="width: 50%">
+			<div ng-repeat="contract in customer.activeContracts | orderBy:'dateRenewal':false" class="col-md-12">
+									<div class="{{(returnClassStatus(contract))}}">
+										<div class="panel-heading">
+											<h3 class="panel-title"><strong>Kontrakt:</strong> {{contract.contractNumber}}</h3><small>Dager til fornyelse: {{daysToRenewal(contract.dateRenewal)}} Dager.</small>
+										</div>
+										<div class="panel-body">
+											<table class="table" id="contractTable">
+												<thead>
+													<tr>
+														<th><a><strong>Tjeneste:</strong></a></th>
+														<th><a><strong>Utført:</strong></a></th>
+														<th><a><strong>Neste:</strong> </a></th>
+														<th><a><strong>Av:</strong></a></th>
+														<th><a><strong>Kommentar:</strong></a></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>{{contract.serviceType}}</td>
+														<td>{{contract.dateCompleted | date:'dd/MM/yyyy'}}</td>
+														<td>{{contract.dateRenewal | date:'dd/MM/yyyy'}}</td>
+														<td>{{contract.user.name}}</td>
+														<td>{{contract.comment}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+		</tab>
+		<tab heading="Utløpte kontrakter" style="width: 50%">
+			<div ng-repeat="contract in customer.expiredContracts | orderBy:'dateCompleted':true" class="col-md-12">
+									<div class="{{(returnClassStatus(contract))}}">
+										<div class="panel-heading">
+											<h3 class="panel-title"><strong>Kontrakt:</strong> {{contract.contractNumber}}</h3><small>Dager til fornyelse: {{daysToRenewal(contract.dateRenewal)}} Dager.</small>
+										</div>
+										<div class="panel-body">
+											<table class="table-condensed" id="contractTable">
+												<thead>
+													<tr>
+														<th><a><strong>Tjeneste:</strong></a></th>
+														<th><a><strong>Utført:</strong></a></th>
+														<th><a><strong>Neste:</strong> </a></th>
+														<th><a><strong>Av:</strong></a></th>
+														<th><a><strong>Kommentar:</strong></a></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>{{contract.serviceType}}</td>
+														<td>{{contract.dateCompleted | date:'dd/MM/yyyy'}}</td>
+														<td>{{contract.dateRenewal | date:'dd/MM/yyyy'}}</td>
+														<td>{{contract.user.name}}</td>
+														<td>{{contract.comment}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+		</tab>
+	</tabset>
+								
+							</div>
+</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">Kommentarer<a href="" ng-click="commentModal()"><span id="padder" class="glyphicon glyphicon-plus-sign"></span></a></h4>
+						</div>
+						<div class="panel-body">
+							<div ng-repeat="comment in customer.comments">             
+								<div class="media-body"> 	
+									<div class="media-heading">
+										<strong>{{comment.user}}</strong>&emsp;<small>{{comment.date | date:'HH:mm:ss dd/MM/yyyy'}}</small>
+									</div>
+									<p>{{comment.comment}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</tab>
+	</tabset>
+</div>

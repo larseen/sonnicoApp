@@ -1,0 +1,49 @@
+<div ng-include="'partials/header'"></div>
+<div class="page-header">
+ <h1>Bedrifter 
+  <small>Velg bedrift der service har blitt gjennomført</small>
+</h1>
+</div>
+<div class="row">
+  <a href="/customer/new"><button id="customerButton" style="width:100%;"class="btn btn-primary btn-lg" role="button">Legg til ny kunde</button></a>
+  <hr>
+  <div class="col-md-12 col-lg-12 input-group">
+    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+    <input type="text" class="form-control search-query col-md-9 col-lg-9" ng-model="search.$">
+  </div>
+  <hr>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th><a href="" ng-click="predicate = 'customerNumber'; reverse=!reverse">Kundenummer</a></th>
+        <th><a href="" ng-click="predicate = 'customer'; reverse=!reverse">Kunde</a></th>
+        <th><a href="" ng-click="predicate = 'status.Brann.message'; reverse=!reverse">Brann</a></th>
+        <th><a href="" ng-click="predicate = 'status.Elektro.message'; reverse=!reverse">Elektro</a></th>
+        <th><a href="" ng-click="predicate = 'status.Termografi.message'; reverse=!reverse">Termografi</a></th>
+        <th><a href="" ng-click="predicate = 'status.Nodlys.message'; reverse=!reverse">Nødlys</a></th>
+        <th><a>Velg</a></th>
+        <th><a>Rediger</a></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="company in companies | filter:search| orderBy:predicate:reverse">
+        <th><div class="alert alert-info" id="userAlert" role="alert">{{company.customerNumber}}</div></th>
+        <th><div class="alert alert-info" id="userAlert" role="alert">{{company.customer}}</div></th>
+        <th><div ng-if="company.status.Brann.class" id="userAlert" class={{company.status.Brann.class}} role="alert">{{company.status.Brann.message | date:'dd/MM/yyyy'}}</div> <div id="userAlert" ng-if="!company.status.Brann.class" class="alert alert-info" id="userAlert" role="alert">Ingen kontrakt</div></th>
+        <th><div ng-if="company.status.Elektro.class" id="userAlert" class={{company.status.Elektro.class}} role="alert">{{company.status.Elektro.message | date:'dd/MM/yyyy'}}</div> <div id="userAlert" ng-if="!company.status.Elektro.class" class="alert alert-info" role="alert">Ingen kontrakt</div></th>
+        <th><div ng-if="company.status.Termografi.class" id="userAlert" class={{company.status.Termografi.class}} role="alert">{{company.status.Termografi.message | date:'dd/MM/yyyy'}}</div> <div id="userAlert" ng-if="!company.status.Termografi.class" class="alert alert-info" role="alert">Ingen kontrakt</div></th>
+        <th><div id="userAlert" ng-if="company.status.Nodlys.class" class={{company.status.Nodlys.class}} role="alert">{{company.status.Nodlys.message | date:'dd/MM/yyyy'}}</div> <div id="userAlert" ng-if="!company.status.Nodlys.class" class="alert alert-info" role="alert">Ingen kontrakt</div></th>
+        <th>
+          <div class="btn-group">
+            <a href="/company/{{company._id}}"><button id="customerButton" class="btn btn-primary btn-lg" role="button">Velg</button></a>
+          </div>
+        </th>
+        <th>
+          <div class="btn-group">
+            <a href="/customer/new/{{company._id}}"><button id="customerButton" class="btn btn-primary btn-lg" role="button">Rediger</button></a>
+          </div>
+        </th>  
+      </tr>
+    </tbody>
+  </table>
+</div>

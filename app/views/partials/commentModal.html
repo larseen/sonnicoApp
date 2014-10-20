@@ -1,0 +1,15 @@
+	<div class="modal-header">
+	    <h2>Legg til en kommentar</h2>
+	</div>
+	<div class="modal-body">
+        <form name="form" novalidate>
+        <div class="form-group" class="col-md-12">
+            <textarea type="textarea" name="comment" class="form-control"required ng-model="comment.comment"></textarea>
+        </div>
+    </form>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled='form.$invalid' ng-click="alter()">Kommenter</button>
+        <button class="btn btn-warning" ng-click="cancel()">Avbryt</button>
+    </div>

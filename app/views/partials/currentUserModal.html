@@ -1,0 +1,42 @@
+    <div class="modal-header">
+        <h2>Rediger profil for {{currentUser.name}}</h2>
+    </div>
+    <div class="modal-body">
+        <tabset>
+            <tab heading="Brukerinformasjon" style="width: 50%">
+        <form name="form" novalidate>
+        <div class="form-group" class="col-md-12">
+            <label for="name">Navn</label>
+            <input type="text" name="name" class="form-control"required placeholder="{{user.name}}" ng-model="user.name">
+        </div>
+        <div class="form-group" class="col-md-12">
+            <label for="email">Epost</label>
+            <input type="email" placeholder="{{user.email}}" required class="form-control" name="{{user.email}}" ng-model="user.email">
+        </div>
+        <div class="form-group" class="col-md-12" >
+            <label for="phone">Telefon</label>
+            <input type="text" placeholder="{{user.phone}}" name="phone" required class="form-control" id="phone" ng-model="user.phone" ng-minlength="8" ng-maxlength="8">
+        </div>
+        </form>
+        <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled='form.$invalid' ng-click="alterUser()">Endre brukerinfo</button>
+        <button class="btn btn-warning" ng-click="cancel()">Avbryt</button>
+    </div>
+    </tab>
+    <tab heading="Passord" style="width: 50%">
+    <form>
+        <div class="form-group" class="col-md-12" >
+            <label for="phone">Gammelt passord</label>
+            <input type="password" name="oldPassword" class="form-control" required id="oldPassword" ng-model="userPass.oldPassword" >
+        </div>
+        <div class="form-group" class="col-md-12" >
+            <label for="phone">Nytt passord</label>
+            <input type="password" name="newPassword" class="form-control" required id="newPassword" ng-model="userPass.newPassword" >
+        </div>
+    </form>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled='form.$invalid' ng-click="alterPassword()">Endre passord</button>
+        <button class="btn btn-warning" ng-click="cancel()">Avbryt</button>
+    </div>
+</tab>
+    </div>

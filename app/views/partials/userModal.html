@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <div ng-if="!newUser">
+        <h2>Rediger bruker</h2>
+    </div>
+    <div ng-if="newUser">
+        <h2>Opprett bruker</h2>
+    </div>
+</div>
+<div class="modal-body">
+    <form name="form" novalidate>
+        <div class="form-group" class="col-md-12">
+            <label for="name">Navn</label>
+            <input type="text" name="name" class="form-control"required placeholder="{{user.name}}" ng-model="user.name">
+        </div>
+        <div class="form-group" class="col-md-12">
+            <label for="email">Epost</label>
+            <input type="email" placeholder="{{user.email}}" required class="form-control" name="{{user.email}}" ng-model="user.email">
+        </div>
+        <div class="form-group" class="col-md-12" >
+            <label for="phone">Telefon</label>
+            <input type="text" placeholder="{{user.phone}}" name="phone" required class="form-control" id="phone" ng-model="user.phone" ng-minlength="8">
+        </div>
+        <div class="form-group" class="col-md-12">
+            <label>Er administrator:   </label>
+            <input type="checkbox" ng-model="user.admin" name="admin" placeholder="{{user.admin}}">
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger pull-left" ng-if="!newUser" ng-click="resetPassword()">Reset bruker passord</button>
+    <button class="btn btn-primary" ng-if="!newUser" ng-disabled='form.$invalid' ng-click="alterUser()">Endre bruker</button>
+    <button class="btn btn-primary" ng-if="newUser" ng-disabled='form.$invalid' ng-click="addUser()">Legg til bruker</button>
+    <button class="btn btn-danger" ng-click="remove()">Fjern</button>
+    <button class="btn btn-warning" ng-click="cancel()">Avbryt</button>
+</div>

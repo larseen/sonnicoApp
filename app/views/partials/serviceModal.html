@@ -1,0 +1,47 @@
+    <div class="modal-header">
+        <h2>Registrer service oppdrag</h2>
+    </div>
+    <div class="modal-body">
+        <form name="form" novalidate>
+        <div class="form-group" class="col-md-12">
+            <label for="name">Kontraktnummer</label>
+            <input type="text" name="name" class="form-control"required placeholder="{{employee.name}}" ng-model="service.contractNumber">
+            <span ng-show="form.contractNumber.$error.required">Missing contract number</span>
+        </div>
+        <div class="form-group" ng-show="isAdmin" class="col-md-12">
+                        <label for="customerNumber">Bruker</label>
+                    <input type="text" class="form-control" ng-model="user" typeahead="user as user.name for user in users | filter:{name:$viewValue}">
+        </div>
+        <div class="form-group" class="col-md-12">
+            <label for="serviceType">Service type</label>
+            <select ng-model="serviceType" class="form-control" ng-options="serviceType for serviceType in serviceTypes"></select><br>
+        </div>
+        <div class="form-group" class="col-md-12">
+            <label for="serviceInterval">Service intervall</label>
+            <select ng-model="serviceInterval" class="form-control" ng-options="serviceInterval.intervalString for serviceInterval in serviceIntervals"></select><br>
+        </div>
+        <div class="form-group" class="col-md-12" >
+            <label for="phone">Kommentar</label>
+            <textarea type="textarea" name="comment" class="form-control" ng-model="service.comment"></textarea>
+        </div>
+        <div class="form-group" class="col-md-7">
+            <div style="display:inline-block; height:285px;">
+                <datepicker ng-model="dateCompleted" style="height: 285px;" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+            </div>
+            <div class="col-md-5" class="form-group" >
+                 <pre>Dato valgt:</pre> 
+                <pre><em>{{dateCompleted | date:'dd/MM/yyyy'}}</em></pre>
+                <pre>Service intervall:</pre> 
+                <pre><em>{{serviceInterval.intervalString}}</em></pre>
+                <pre>Neste service:</pre> 
+                <pre><em>{{dateRenewal | date:'dd/MM/yyyy'}}</em></pre>
+            </div>
+        </div>
+
+    </form>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled='form.$invalid' ng-click="alter(service)">Registrer service</button>
+        <button class="btn btn-warning" ng-click="cancel()">Avbryt</button>
+    </div>

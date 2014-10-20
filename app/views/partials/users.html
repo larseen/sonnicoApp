@@ -1,0 +1,33 @@
+<div ng-include="'partials/header'"></div>
+<div class="page-header">
+    <h1>Brukere</h1>
+</div>
+<div class="row">
+    <button style="width:100%;" class="btn btn-primary btn-lg" ng-click="userModal(user)" role="button">Ny Bruker</button>
+    <hr>
+    <div class="col-md-12 col-lg-12 input-group">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+        <input type="text" class="form-control search-query col-md-9 col-lg-9" ng-model="search.$">
+    </div>
+    <hr>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th><a ng-click="predicate = 'name'; reverse=!reverse">Navn</a></th>
+                <th><a ng-click="predicate = 'email'; reverse=!reverse">Epost</a></th>
+                <th><a>Telefon</a></th>
+                <th><a ng-click="predicate = 'admin'; reverse=!reverse">Bruker klasse</a></th>
+                <th><a>Rediger</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users | filter:search | orderBy:predicate:reverse">
+                <th><div class="alert alert-info" id="userAlert" role="alert">{{user.name}}</div></th>
+                <th><div class="alert alert-info" id="userAlert" role="alert">{{user.email}}</div></th>
+                <th><div class="alert alert-info" id="userAlert" role="alert">{{user.phone}}</div></th>
+                <th><div ng-if="user.admin" id="userAlert" class="alert alert-danger" role="alert">Administrator</div><div ng-if="!user.admin" id="userAlert" class="alert alert-info" role="alert">Vanlig bruker</div></th>
+                <th><button id="customerButton" style="width:100%;"class="btn btn-warning btn-lg" ng-click="userModal(user)" role="button">Rediger</button></th> 
+            </tr>
+        </tbody>
+    </table>
+</div>

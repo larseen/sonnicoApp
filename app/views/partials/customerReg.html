@@ -1,0 +1,197 @@
+<div ng-include="'partials/header.html'"></div>
+<div class="page-header">
+    <h1>Registrer ny kunde</h1>
+</div>
+<form class="form-horizontal" name="customerForm">
+<tabset>
+    <tab heading="Kundeinformasjon" style="width: 50%">
+        <br/>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                
+                    <div class="form-group">
+                        <label for="customerNumber"  class="col-sm-4 control-label">Kundenummer</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" required id="customerNumber" ng-model="customer.customerNumber">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerNumber" class="col-sm-4 control-label">Kunde</label>
+                        <div class="col-sm-7">
+                            <input type="text" required class="form-control" id="customerNumber" ng-model="customer.customer">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerNumber" class="col-sm-4 control-label">Adresse</label>
+                        <div class="col-sm-7">
+                            <input type="text" required class="form-control" id="customerNumber" ng-model="customer.adress">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerNumber" class="col-sm-4 control-label">Postkode</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" required id="customerNumber" ng-model="customer.postalcode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerNumber" class="col-sm-4 control-label">Poststed</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" required id="customerNumber" ng-model="customer.city">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerNumber" class="col-sm-4 control-label">Pris inngått</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="customerNumber" ng-model="customer.startingPrice">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerNumber" class="col-sm-4 control-label">Pris regulert</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="customerNumber" ng-model="customer.regulatedPrice">
+                        </div>
+                    </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                <map zoom="4" center="65.037657, 11.732835" style="display:block;height:359px" ></map>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Datoer<a href="" ng-click="employeeModal()"><span id="padder"class="glyphicon glyphicon-plus-sign"></span></a></</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div style="display:inline-block; height:320;">
+                                    <datepicker ng-model="customer.dateJoined" style="height: 320px;" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                                    <pre>Dato inngått:</pre> 
+                                    <br/>
+                                    <pre><em>{{customer.dateJoined | date:'dd/MM/yyyy'}}</em></pre>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="display:inline-block; height:320;">
+                                    <datepicker ng-model="customer.lastRegulation" style="height: 320px;" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                                    <pre>Dato siste regulering:</pre> 
+                                    <br/>
+                                    <pre><em>{{customer.lastRegulation | date:'dd/MM/yyyy'}}</em></pre>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="display:inline-block; height:320;">
+                                    <datepicker ng-model="customer.nextRegulation" style="height: 320px;" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                                    <pre>Dato neste regulering:</pre> 
+                                    <br/>
+                                    <pre><em>{{customer.nextRegulation | date:'dd/MM/yyyy'}}</em></pre>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Kontaktpersoner<a href="" ng-click="employeeModal()"><span id="padder"class="glyphicon glyphicon-plus-sign"></span></a></</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div ng-repeat="employee in customer.employees">
+                                <div class="col-md-3">
+                                    <h4>{{employee.name}}</h4>
+                                    <strong>Mobil:</strong> {{employee.phone}}
+                                    <br/>
+                                    <strong>Epost:</strong> {{employee.email}}
+                                    <br/>   
+                                    <a href="" ng-click="employeeModal(employee)"><span></span>Rediger</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </tab>
+    <tab heading="Tjenesteinformasjon" style="width: 50%">
+        <br/>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Kontrollør ansvarlige <span><small> Ansvarlig kontrollører blir delegert av administrator</small></span></h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="customerNumber">Brann</label>
+                                <input type="text" class="form-control" ng-model="customer.supervisors.fire" typeahead="user as user.name for user in users | filter:{name:$viewValue}">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="customerNumber">Elektro</label>
+                                <input type="text" class="form-control" ng-model="customer.supervisors.elektro" typeahead="user as user.name for user in users | filter:{name:$viewValue}">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="customerNumber">Nødlys</label>
+                                <input type="text" class="form-control" ng-model="customer.supervisors.alert" typeahead="user as user.name for user in users | filter:{name:$viewValue}">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="customerNumber">Termografi</label>
+                                <input type="text" class="form-control" ng-model="customer.supervisors.thermo" typeahead="user as user.name for user in users | filter:{name:$viewValue}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Aktive kontrakter<a href="" ng-click="serviceModal()"><span id="padder" class="glyphicon glyphicon-plus-sign"></span></a></h4>
+                        </div>
+                        <div class="panel-body" id="contractPanel">
+                            <div ng-repeat="contract in customer.activeContracts | orderBy:'dateCompleted':true" class="col-md-12">
+                                <div class="{{(returnClassStatus(contract))}}">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"><strong>Kontrakt:</strong> {{contract.contractNumber}}</h3><small>Dager til fornyelse: {{daysToRenewal(contract.dateRenewal)}} Dager.</small>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table-condensed" id="contractTable">
+                                            <thead>
+                                                <tr>
+                                                    <th><a><strong>Tjeneste:</strong></a></th>
+                                                    <th><a><strong>Utført:</strong></a></th>
+                                                    <th><a><strong>Neste:</strong> </a></th>
+                                                    <th><a><strong>Av:</strong></a></th>
+                                                    <th><a><strong>Kommentar:</strong></a></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{contract.serviceType}}</td>
+                                                    <td>{{contract.dateCompleted | date:'dd/MM/yyyy'}}</td>
+                                                    <td>{{contract.dateRenewal | date:'dd/MM/yyyy'}}</td>
+                                                    <td>{{contract.user.name}}</td>
+                                                    <td>{{contract.comment}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+    <div class="modal-footer">
+        <div class="row">
+            <a href="/"><button id="customerButton" ng-disabled="customerForm.$invalid" ng-click="addCustomer()" style="width:100%;" class="btn btn-primary btn-lg">Registrer ny kunde</button></a>
+        </div>
+    </div>
+    </form>
